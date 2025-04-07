@@ -14,5 +14,4 @@ Dự án mô phỏng dây chuyền phân loại rác thải với ROS, Gazebo v�
 2. Cài ROS Noetic và Gazebo 11.
 3. Chạy notebook huấn luyện YOLOv5 trong `ai/notebooks/`.
 
-## Video demo
-- [Demo Tuần 1]([gazebo/media/demo_week1.mp4](https://drive.google.com/file/d/1IJTAokyciQoClosyEuW3agS2x_kuWsdW/view?usp=sharing))
+
