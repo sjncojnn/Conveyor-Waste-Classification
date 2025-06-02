@@ -1,0 +1,24 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 100
+    use_sim_time: true
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+    arm_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+arm_controller:
+  ros__parameters:
+    joints:
+      - axle_0_to_arm_0
+      - axle_1_to_arm_1
+      - axle_2_to_arm_2
+      - axle_3_to_arm_3
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+      - velocity
+    trajectory_point_tolerance: 0.01
+    goal_tolerance: 0.01
+    max_velocity: 1.0
+    max_acceleration: 1.0

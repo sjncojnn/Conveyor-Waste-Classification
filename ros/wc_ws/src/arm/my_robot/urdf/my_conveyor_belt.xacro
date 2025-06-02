@@ -1,0 +1,186 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="my_conveyor_belt"> 
+
+    <xacro:property name="base_length" value="9.0"/>
+    <xacro:property name="base_width" value="0.32"/>
+    <xacro:property name="base_height" value="0.8"/>
+    <xacro:property name="axle_length" value="0.03"/> 
+    <xacro:property name="axle_width" value="0.08"/> 
+    <xacro:property name="axle_height" value="0.02"/> 
+    <xacro:property name="arm_length" value="1.40"/> 
+    <xacro:property name="arm_width" value="0.032"/>  
+    <xacro:property name="arm_height" value="0.016"/> 
+    <xacro:property name="axle_spacing" value="1.6"/>
+    <xacro:property name="pi_" value="3.14159265359"/>
+
+    <!-- Materials -->
+    <material name="gray">
+        <color rgba="0.5 0.5 0.5 1.0"/>
+    </material>
+    <material name="yellow">
+        <color rgba="1.0 1.0 0.0 1.0"/>
+    </material>
+    <material name="black">
+        <color rgba="0.0 0.0 0.0 1.0"/>
+    </material>
+
+    <!-- Macros for Links -->
+    <xacro:macro name="box_link" params="name length width height material mass">
+        <link name="${name}">
+            <visual>
+                <geometry>
+                    <box size="${length} ${width} ${height}"/>
+                </geometry>
+                <origin rpy="0 0 0" xyz="${-length/2} 0 0"/>
+                <material name="${material}"/>
+            </visual>
+            <collision>
+                <geometry>
+                    <box size="${length} ${width} ${height}"/>
+                </geometry>
+                <origin rpy="0 0 0" xyz="${-length/2} 0 0"/>
+            </collision>
+            <inertial>
+        <mass value="${mass}"/>
+        <inertia ixx="1000" ixy="0.0" ixz="0.0"
+                 iyy="1000" iyz="0.0"
+                 izz="1000"/>
+      </inertial>
+        </link>
+
+    </xacro:macro>
+
+    <!-- Macros for Joints -->
+    <xacro:macro name="fixed_joint" params="name parent child x y z">
+        <joint name="${name}" type="fixed">
+            <parent link="${parent}"/>
+            <child link="${child}"/>
+            <origin xyz="${x} ${y} ${z}" rpy="0 0 0"/>
+        </joint>
+    </xacro:macro>
+
+    <xacro:macro name="revolute_joint" params="name parent child x y z rpy lower_limit upper_limit axis">
+         <joint name="${name}" type="revolute">
+            <parent link="${parent}"/>
+            <child link="${child}"/>
+            <origin xyz="${x} ${y} ${z}" rpy="${rpy}"/>
+            <axis xyz="${axis}"/>
+            <limit lower="${lower_limit}" upper="${upper_limit}" effort="1000" velocity="100"/>
+        </joint>
+    </xacro:macro>
+
+    <!-- World Link and Joint to ground the robot -->
+    <link name="world_link"/>
+    <joint name="world_joint" type="fixed">
+        <parent link="world_link"/>
+        <child link="base_link"/>
+
+        <origin xyz="0 0 0" rpy="0 0 ${pi * 1.5}"/>
+    </joint>
+
+
+    <!-- Base Link -->
+    <xacro:box_link name="base_link" length="${base_length}" width="${base_width}" height="${base_height + 1}" material="gray" mass="10000.0"/>
+
+    <!-- Macro for Axle and Bar unit -->
+    <xacro:macro name="axle_and_arm" params="index">
+
+        <xacro:property name="x_pos" value="${-base_length + 1.3 + axle_spacing * (index + 0.23)}"/>
+
+        <xacro:box_link name="axle_${index}" length="${axle_length}" width="${axle_width}" height="${axle_height}" material="yellow" mass="200.0"/>
+
+        <xacro:fixed_joint name="base_to_axle_${index}" parent="base_link" child="axle_${index}"
+                           x="${x_pos}" y="${-base_width/2 - axle_width/2}" z="${-base_height/6 + axle_height}"/>
+
+        <!-- Arm (Box) Link -->
+        <xacro:box_link name="arm_${index}" length="${arm_length}" width="${arm_width}" height="${arm_height}" material="black" mass="500.0"/>
+
+        <!-- Joint: Axle Link to Bar Link (Revolute) -->
+        <xacro:revolute_joint name="axle_${index}_to_arm_${index}"
+                              parent="axle_${index}"
+                              child="arm_${index}"
+                              x="${-axle_length/3}"
+                              y="0"
+                              z="${-axle_height}" 
+                              rpy="0 0 0" 
+                              lower_limit="0" 
+                              upper_limit="${pi_/4}" 
+                              axis="0 0 1" 
+                              />
+    </xacro:macro>
+
+    <!-- Create 4 units -->
+    <xacro:axle_and_arm index="0"/>
+    <xacro:axle_and_arm index="1"/>
+    <xacro:axle_and_arm index="2"/>
+    <xacro:axle_and_arm index="3"/>
+
+<!-- Plugin Gazebo Classic -->
+  <gazebo>
+    <plugin name="gazebo_ros2_control" filename="libgazebo_ros2_control.so">
+      <robot_namespace>my_conveyor_belt_robot</robot_namespace>
+      <parameters>$(find my_conveyor_gazebo)/config/controllers.yaml</parameters>
+      <robot_sim_type>gazebo_ros2_control/GazeboSystem</robot_sim_type>
+    </plugin>
+  </gazebo>
+
+
+
+  <!-- ROS 2 Control hardware interface -->
+  <ros2_control name="GazeboSystem" type="system">
+    <hardware>
+      <plugin>gazebo_ros2_control/GazeboSystem</plugin>
+    </hardware>
+    <joint name="axle_0_to_arm_0">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="axle_1_to_arm_1">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="axle_2_to_arm_2">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="axle_3_to_arm_3">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+  </ros2_control>
+   
+  
+  <!-- Gazebo Material -->
+  <gazebo reference="base_link">
+    <material>Gazebo/Grey</material>
+  </gazebo>
+  <gazebo reference="axle_0">
+    <material>Gazebo/Yellow</material>
+  </gazebo>
+  <gazebo reference="axle_1">
+    <material>Gazebo/Yellow</material>
+  </gazebo>
+  <gazebo reference="axle_2">
+    <material>Gazebo/Yellow</material>
+  </gazebo>
+  <gazebo reference="axle_3">
+    <material>Gazebo/Yellow</material>
+  </gazebo>
+  <gazebo reference="arm_0">
+    <material>Gazebo/Black</material>
+  </gazebo>
+  <gazebo reference="arm_1">
+    <material>Gazebo/Black</material>
+  </gazebo>
+  <gazebo reference="arm_2">
+    <material>Gazebo/Black</material>
+  </gazebo>
+  <gazebo reference="arm_3">
+    <material>Gazebo/Black</material>
+  </gazebo>
+  
+</robot>

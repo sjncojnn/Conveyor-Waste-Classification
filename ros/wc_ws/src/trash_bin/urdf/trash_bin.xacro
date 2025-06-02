@@ -1,0 +1,168 @@
+<?xml version="1.0"?>
+<robot name="trash_bin" xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:property name="length" value="1.5"/> 
+  <xacro:property name="width" value="1.2"/> 
+  <xacro:property name="height" value="0.6"/> 
+  <xacro:property name="wall_thickness" value="0.02"/>
+
+  <material name="default_color">
+    <color rgba="1.0 1.0 0.0 1.0"/>
+  </material>
+
+  <link name="base_link">
+    <inertial>
+      <mass value="0.001"/> 
+      <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
+    </inertial>
+  </link>
+
+  <link name="bottom">
+    <visual>
+      <geometry>
+        <box size="${length} ${width} ${wall_thickness}"/>
+      </geometry>
+      <origin xyz="0 0 ${wall_thickness/2}" rpy="0 0 0"/>
+      <material name="default_color"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="${length} ${width} ${wall_thickness}"/>
+      </geometry>
+      <origin xyz="0 0 ${wall_thickness/2}" rpy="0 0 0"/>
+    </collision>
+    <inertial>
+      <mass value="2.0"/>
+      <inertia ixx="0.2" ixy="0.0" ixz="0.0" iyy="0.2" iyz="0.0" izz="0.2"/>
+    </inertial>
+  </link>
+
+  <link name="front_wall">
+    <visual>
+      <geometry>
+        <box size="${length} ${wall_thickness} ${height}"/>
+      </geometry>
+      <origin xyz="0 ${width/2 - wall_thickness/2} ${height/2}"/>
+      <material name="default_color"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="${length} ${wall_thickness} ${height}"/>
+      </geometry>
+      <origin xyz="0 ${width/2 - wall_thickness/2} ${height/2}"/>
+    </collision>
+    <inertial>
+      <mass value="2.0"/> 
+      <inertia ixx="0.2" ixy="0.0" ixz="0.0" iyy="0.2" iyz="0.0" izz="0.2"/>
+    </inertial>
+  </link>
+
+  <link name="back_wall">
+    <visual>
+      <geometry>
+        <box size="${length} ${wall_thickness} ${height}"/>
+      </geometry>
+      <origin xyz="0 ${-width/2 + wall_thickness/2} ${height/2}"/>
+      <material name="default_color"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="${length} ${wall_thickness} ${height}"/>
+      </geometry>
+      <origin xyz="0 ${-width/2 + wall_thickness/2} ${height/2}"/>
+    </collision>
+    <inertial>
+      <mass value="2.0"/>
+      <inertia ixx="0.2" ixy="0.0" ixz="0.0" iyy="0.2" iyz="0.0" izz="0.2"/>
+    </inertial>
+  </link>
+
+  <link name="left_wall">
+    <visual>
+      <geometry>
+        <box size="${wall_thickness} ${width - 2*wall_thickness} ${height}"/>
+      </geometry>
+      <origin xyz="${-length/2 + wall_thickness/2} 0 ${height/2}"/>
+      <material name="default_color"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="${wall_thickness} ${width - 2*wall_thickness} ${height}"/>
+      </geometry>
+      <origin xyz="${-length/2 + wall_thickness/2} 0 ${height/2}"/>
+    </collision>
+    <inertial>
+      <mass value="2.0"/> 
+      <inertia ixx="0.2" ixy="0.0" ixz="0.0" iyy="0.2" iyz="0.0" izz="0.2"/>
+    </inertial>
+  </link>
+
+  <link name="right_wall">
+    <visual>
+      <geometry>
+        <box size="${wall_thickness} ${width - 2*wall_thickness} ${height}"/>
+      </geometry>
+      <origin xyz="${length/2 - wall_thickness/2} 0 ${height/2}"/>
+      <material name="default_color"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="${wall_thickness} ${width - 2*wall_thickness} ${height}"/>
+      </geometry>
+      <origin xyz="${length/2 - wall_thickness/2} 0 ${height/2}"/>
+    </collision>
+    <inertial>
+      <mass value="2.0"/> 
+      <inertia ixx="0.2" ixy="0.0" ixz="0.0" iyy="0.2" iyz="0.0" izz="0.2"/>
+    </inertial>
+  </link>
+
+  <joint name="base_to_bottom" type="fixed">
+    <parent link="base_link"/>
+    <child link="bottom"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+  <joint name="base_to_front_wall" type="fixed">
+    <parent link="base_link"/>
+    <child link="front_wall"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+  <joint name="base_to_back_wall" type="fixed">
+    <parent link="base_link"/>
+    <child link="back_wall"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+  <joint name="base_to_left_wall" type="fixed">
+    <parent link="base_link"/>
+    <child link="left_wall"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+  <joint name="base_to_right_wall" type="fixed">
+    <parent link="base_link"/>
+    <child link="right_wall"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+  <gazebo>
+    <static>false</static> 
+  </gazebo>
+
+  <gazebo reference="bottom">
+    <material>Gazebo/Yellow</material>
+  </gazebo>
+  <gazebo reference="front_wall">
+    <material>Gazebo/Yellow</material>
+  </gazebo>
+  <gazebo reference="back_wall">
+    <material>Gazebo/Yellow</material>
+  </gazebo>
+  <gazebo reference="left_wall">
+    <material>Gazebo/Yellow</material>
+  </gazebo>
+  <gazebo reference="right_wall">
+    <material>Gazebo/Yellow</material>
+  </gazebo>
+</robot>

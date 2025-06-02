@@ -1,0 +1,11 @@
+# spawn_list.txt
+# Format:
+#   model_sdf, prefix[, x, y, z, roll, pitch, yaw]
+#
+# Lines starting with “#” or blank lines are ignored.
+coca.sdf,      coca,
+metal.sdf,     metal,
+glass.sdf, glass,
+plastic.sdf, plastic
+organic.sdf, organic
+
