@@ -47,7 +47,7 @@ def generate_launch_description():
         ('trash_bin_2', -1.15,  0.40, 0.0, 0.0, 0.0, -1.566415),
         ('trash_bin_3', -1.15,  2.00, 0.0, 0.0, 0.0, -1.566415),
         ('trash_bin_4', -1.15,  3.60, 0.0, 0.0, 0.0, -1.566415),
-        ('trash_bin_5',  0.00,  5.20, 0.0, 0.0, 0.0,  0.0     ),
+        ('trash_bin_5',  0.00,  6.50, 0.0, 0.0, 0.0,  0.0     ),
     ]
     spawn_handlers = []
     for idx, (ename, ex, ey, ez, eroll, epitch, eyaw) in enumerate(trash_positions):

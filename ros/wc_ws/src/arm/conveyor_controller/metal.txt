@@ -1,0 +1,6 @@
+# 5 metal blocks:
+metal.sdf,         metal1
+metal1.sdf,        metal2
+metal2.sdf,        metal3
+metal3.sdf,        metal4
+metal4.sdf,        metal5

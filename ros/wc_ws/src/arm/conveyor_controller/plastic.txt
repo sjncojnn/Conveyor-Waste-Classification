@@ -1,0 +1,6 @@
+# 5 plastic blocks:
+plastic.sdf, plastic
+plastic1.sdf,       plastic1
+plastic2.sdf,      plastic2
+plastic3.sdf,      plastic3
+plastic4.sdf,      plastic4

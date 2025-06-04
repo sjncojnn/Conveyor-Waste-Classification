@@ -20,7 +20,7 @@ class FileSpawner(Node):
         self.declare_parameter('spawn_rate', 5.0)        # seconds between spawns
         self.declare_parameter('model_package', 'conveyorbelt_gazebo')
         # default pose (x, y, z, roll, pitch, yaw)
-        self.default_pose = (0.0, -4.0, 0.76, 0.0, 0.0, 0.0)
+        self.default_pose = (-0.1, -5.6, 0.76, 0.0, 0.0, 0.0)
 
         # 2) load parameters
         self.list_path     = self.get_parameter('spawn_list_file').value

@@ -1,0 +1,6 @@
+# 5 organic food‐waste blocks:
+organic.sdf,       organic1
+organic1.sdf,      organic2
+organic2.sdf,      organic3
+organic3.sdf,      organic4
+organic4.sdf,      organic5

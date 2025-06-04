@@ -6,8 +6,8 @@
     <xacro:property name="base_height" value="0.8"/>
     <xacro:property name="axle_length" value="0.03"/> 
     <xacro:property name="axle_width" value="0.08"/> 
-    <xacro:property name="axle_height" value="0.02"/> 
-    <xacro:property name="arm_length" value="1.40"/> 
+    <xacro:property name="axle_height" value="0.05"/> 
+    <xacro:property name="arm_length" value="1.50"/> 
     <xacro:property name="arm_width" value="0.032"/>  
     <xacro:property name="arm_height" value="0.016"/> 
     <xacro:property name="axle_spacing" value="1.6"/>

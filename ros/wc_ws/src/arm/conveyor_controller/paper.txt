@@ -1,0 +1,11 @@
+
+# 5 paper blocks:
+paper.sdf,         paper1
+paper1.sdf,        paper2
+paper2.sdf,        paper3
+paper3.sdf,        paper4
+paper4.sdf,        paper5
+
+
+
+

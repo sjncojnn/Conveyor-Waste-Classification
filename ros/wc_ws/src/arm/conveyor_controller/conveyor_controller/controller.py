@@ -13,11 +13,11 @@ class ConveyorController(Node):
         self.joint_pub = self.create_publisher(JointTrajectory, '/arm_controller/joint_trajectory', 10)
         #Config hold, move time of arm
         self.update_rate = 300.0  # 300 Hz
-        self.move_duration = 1.0 
-        self.hold_duration = 1.75  # seconds to hold position
+        self.move_duration = 0.75
+        self.hold_duration = 4.0  # seconds to hold position
         self.num_steps = int(self.move_duration * self.update_rate)
-        self.step_duration = 1.0 / self.update_rate
-        self.joint_names = [
+        self.step_duration = 0.75 / self.update_rate
+        self.joint_names = [    
             'axle_0_to_arm_0',
             'axle_1_to_arm_1',
             'axle_2_to_arm_2',
@@ -39,9 +39,8 @@ class ConveyorController(Node):
             return
 
         # map each pusher to a target angle
-        angle_map = [60.0, 60.0, 60.0, 60.0]
+        angle_map = [45.0, 45.0, 45.0, 45.0]
         target = angle_map[idx]
-        self.get_logger().info(f"Pusher {pidx} → moving arm {idx+1} to {target}°")
         self.move_arm(idx, target)
         
     def move_arm_smooth(self, index, target_angle_rad):
@@ -51,7 +50,6 @@ class ConveyorController(Node):
         current_angle = self.current_positions[index]
         angle_step = (target_angle_rad - current_angle) / self.num_steps
 
-        self.get_logger().info(f'Moving arm {index + 1} to {math.degrees(target_angle_rad):.2f} degrees')
         for step in range(self.num_steps + 1):
             point = JointTrajectoryPoint()
 
@@ -75,7 +73,6 @@ class ConveyorController(Node):
         angle_step = (target_angle - current_angle) / self.num_steps
 
    
-        self.get_logger().info(f'Returning arm {index + 1} to 0 degrees')
         for step in range(self.num_steps + 1):
             point = JointTrajectoryPoint()
             positions = self.current_positions.copy()

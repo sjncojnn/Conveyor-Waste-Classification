@@ -1,0 +1,5 @@
+glass.sdf, glass1
+glass1.sdf, glass2
+glass2.sdf, glass3
+glass3.sdf, glass4
+glass4.sdf, glass5

@@ -3,9 +3,37 @@
 #   model_sdf, prefix[, x, y, z, roll, pitch, yaw]
 #
 # Lines starting with “#” or blank lines are ignored.
-coca.sdf,      coca,
-metal.sdf,     metal,
-glass.sdf, glass,
-plastic.sdf, plastic
-organic.sdf, organic
+# 5 glass blocks:
+glass.sdf, glass1
+glass1.sdf, glass2
+glass2.sdf, glass3
+glass3.sdf, glass4
+glass4.sdf, glass5
 
+# 5 paper blocks:
+paper.sdf,         paper1
+paper1.sdf,        paper2
+paper2.sdf,        paper3
+paper3.sdf,        paper4
+paper4.sdf,        paper5
+
+# 5 metal blocks:
+metal.sdf,         metal1
+metal1.sdf,        metal2
+metal2.sdf,        metal3
+metal3.sdf,        metal4
+metal4.sdf,        metal5
+
+# 5 organic food‐waste blocks:
+organic.sdf,       organic1
+organic1.sdf,      organic2
+organic2.sdf,      organic3
+organic3.sdf,      organic4
+organic4.sdf,      organic5
+
+# 5 plastic blocks:
+plastic.sdf,       plastic1
+plastic1.sdf,      plastic2
+plastic2.sdf,      plastic3
+plastic3.sdf,      plastic4
+plastic4.sdf,      plastic5
