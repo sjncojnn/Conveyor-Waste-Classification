@@ -112,17 +112,6 @@ The repository is organized as follows:
 | `ros/wc_ws/src/trash_bin/` | ROS 2 package for waste bin simulation |
 | `docs/` | Project documentation and reports |
 
-## Contributing
-
-Contributions are welcome! To contribute:
-1. Fork the repository.
-2. Create a new branch for your changes (`git checkout -b feature/your-feature`).
-3. Commit your changes with clear messages (`git commit -m "Add feature X"`).
-4. Push to your branch (`git push origin feature/your-feature`).
-5. Submit a pull request with detailed descriptions of your changes.
-
-Please ensure your code follows the project’s coding standards and includes documentation.
-
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE.md](LICENSE.md) file for details.
@@ -130,6 +119,6 @@ This project is licensed under the MIT License. See the [LICENSE.md](LICENSE.md)
 ## Acknowledgments
 
 - **Advisor**: Nguyen An Khuong
-- **Contributors**: Nguyen Duc Hanh Nhi, Nguyen Thi Thanh Thao, Tran Duc Huy, Tran Huu Hoang, Tran Van Hung, Tran Van Huy, Truong Hoang Minh, Vo Duc Thinh
+- **Contributors**: Nguyen Duc Hanh Nhi, Le Van Duc Anh, Huynh Nga, Phan Quang Minh, Nguyen Anh Kiet
 - **Tools and Libraries**: [Ultralytics YOLOv8](https://docs.ultralytics.com/), [TensorFlow](https://www.tensorflow.org/), [OpenCV](https://opencv.org/), [Gazebo](http://gazebosim.org/), [ROS 2](https://docs.ros.org/en/humble/)
 - **Dataset Sources**: Kaggle, Google Drive, Roboflow
